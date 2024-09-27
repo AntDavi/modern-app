@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-content>
-    @if (movie(); as movie) {
+    @if (movie(); as movie) { <!-- Verifica se o filme foi carregado e o atribui à variável local 'movie'. -->
     <ion-card>
       <div [style.height.px]="300"
         [style.background-image]="'url(' + imageBaseUrl + '/w400' + movie?.poster_path + ')'"></div>
@@ -18,8 +18,8 @@
         <ion-card-title> {{ movie?.title }} </ion-card-title>
         <ion-card-subtitle> {{ movie.tagline }} </ion-card-subtitle>
         <ion-text color="tertiary">
-          @for (g of movie.genres; track g.id; let isLast = $last;) {
-          <span> {{ g.name }} {{ !isLast ? '·' : '' }}</span>
+          @for (g of movie.genres; track g.id; let isLast = $last;) { <!-- Itera sobre os gêneros do filme, mostrando-os com separadores (·) entre eles. -->
+          <span> {{ g.name }} {{ !isLast ? '·' : '' }}</span> <!-- Adiciona o separador entre gêneros, exceto no último. -->
           }
         </ion-text>
       </ion-card-header>
