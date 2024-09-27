@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, InfiniteScrollCustomEvent, IonList, IonItem, IonAvatar, IonSkeletonText, IonAlert } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, InfiniteScrollCustomEvent, IonList, IonItem, IonAvatar, IonSkeletonText, IonAlert, IonLabel, IonBadge, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
 import { MovieService } from '../services/movie.service';
 import { catchError, finalize } from 'rxjs';
 import { MovieResult } from '../services/interfaces';
+import { DatePipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonAlert, IonSkeletonText, IonAvatar, IonItem, IonList, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [IonInfiniteScrollContent, IonInfiniteScroll, IonBadge, IonLabel, IonAlert, IonSkeletonText, IonAvatar, IonItem, IonList, IonHeader, IonToolbar, IonTitle, IonContent, DatePipe, RouterModule],
 })
 export class HomePage {
   private movieService = new MovieService();
   private currentPage = 1;
   public error = null;
   public isLoading = false;
-  private movies: MovieResult[] = [];
+  public movies: MovieResult[] = [];
   public imageBaseUrl = 'https://image.tmdb.org/t/p/';
   public dummyArray = new Array(5);
 
@@ -60,6 +62,7 @@ export class HomePage {
   }
 
   loadMore(event: InfiniteScrollCustomEvent) {
-
+    this.currentPage++;
+    this.loadMovies(event);
   }
 }
